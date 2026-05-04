@@ -21,3 +21,12 @@ void matrix_free(Matrix *m) {
   free(m->data);
   free(m);
 }
+
+void matrix_fill_random(Matrix *m, unsigned int seed) {
+  srand(seed);
+  for (int i = 0; i <= m->n; i++) {
+    for (int j = 0; j <= m->n; j++) {
+      MAT(m, i, j) = (double)rand() / RAND_MAX;
+    }
+  }
+}
