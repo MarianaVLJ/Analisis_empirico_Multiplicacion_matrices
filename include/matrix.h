@@ -12,5 +12,6 @@ Matrix *matrix_create(int n);
 void matrix_free(Matrix *m);
 void matrix_fill_random(Matrix *m, unsigned int seed);
 void matrix_print(const Matrix *m, int max_rows);
+Matrix *multiply_std(const Matrix *A, const Matrix *B);
 
 #endif
