@@ -7,7 +7,7 @@ Matrix *matrix_create(int n) {
   if (!m) return NULL;
 
   m->n = n;
-  m->data = malloc(n * n * sizeof(double));
+  m->data = calloc(n * n, sizeof(double));
   if (!m->data) {
     free(m);
     return NULL;
@@ -39,4 +39,18 @@ void matrix_print(const Matrix *m, int max_rows) {
     }
     printf("\n");
   }
+}
+
+Matrix *multiply_std(const Matrix *A, const Matrix *B) {
+  Matrix *C = matrix_create(A->n);
+  if (!C) return NULL;
+
+  for (int i = 0; i < A->n; i++) {
+    for (int j = 0; j < A->n; j++) {
+      for (int k = 0; k < A->n; k++) {
+        MAT(C, i, j) += MAT(A, i, k) * MAT(B, k, j);
+      }
+    }
+  }
+  return C;
 }
