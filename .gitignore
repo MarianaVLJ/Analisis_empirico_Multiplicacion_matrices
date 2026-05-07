@@ -1,3 +1,4 @@
 experiment
 *.o
-*.swp
+*.swpi
+resultados.csv

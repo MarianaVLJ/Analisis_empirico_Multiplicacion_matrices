@@ -6,6 +6,9 @@ int main(void) {
   int sizes[] = {2, 4, 8, 16, 32, 64, 128, 256};
   int num_sizes = 8;
 
+  FILE *csv = fopen("resultados.csv", "w");
+  fprintf(csv, "n,tiempo_std,tiempo_strassen\n");
+
   for (int s = 0; s < num_sizes; s++) {
     int n = sizes[s];
 
@@ -27,6 +30,7 @@ int main(void) {
     double tiempo_str = (double)(fin - inicio) / CLOCKS_PER_SEC;
 
     printf("n=%d | std: %.6f s | strassen: %.6f s\n", n, tiempo_std, tiempo_str);
+    fprintf(csv, "%d,%.6f,%.6f\n", n, tiempo_std, tiempo_str);
 
     matrix_free(A);
     matrix_free(B);
@@ -34,5 +38,7 @@ int main(void) {
     matrix_free(D);
   }
 
+  fclose(csv);
+  printf("Resultados guardados en resultados.csv\n");
   return 0;
 }
