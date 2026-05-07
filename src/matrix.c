@@ -54,3 +54,17 @@ Matrix *multiply_std(const Matrix *A, const Matrix *B) {
   }
   return C;
 }
+
+Matrix *matrix_add(const Matrix *A, const Matrix *B) {
+  Matrix *C = matrix_create(A->n);
+  if (!C) return NULL;
+
+  for (int i = 0; i < A->n; i++) {
+    for (int j = 0; j < A->n; j++) {
+      MAT(C, i, j) = MAT(A, i, j) + MAT(B, i, j);
+    }
+  }
+
+  return C;
+}
+
