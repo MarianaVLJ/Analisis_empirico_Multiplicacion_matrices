@@ -1,49 +1,38 @@
 #include <stdio.h>
+#include <time.h>
 #include "matrix.h"
 
 int main(void) {
-  int n = 4;
+  int sizes[] = {2, 4, 8, 16, 32, 64, 128, 256};
+  int num_sizes = 8;
 
-  Matrix *A = matrix_create(n);
-  Matrix *B = matrix_create(n);
+  for (int s = 0; s < num_sizes; s++) {
+    int n = sizes[s];
 
-  matrix_fill_random(A, 42);
-  matrix_fill_random(B, 123);
+    Matrix *A = matrix_create(n);
+    Matrix *B = matrix_create(n);
+    matrix_fill_random(A, 42);
+    matrix_fill_random(B, 123);
 
-  Matrix *C = multiply_std(A, B);
+    clock_t inicio, fin;
 
-  printf("Matriz A (%dx%d):\n", n, n);
-  matrix_print(A, n);
+    inicio = clock();
+    Matrix *C = multiply_std(A, B);
+    fin = clock();
+    double tiempo_std = (double)(fin - inicio) / CLOCKS_PER_SEC;
 
-  printf("Matriz B (%dx%d):\n", n, n);
-  matrix_print(B, n);
+    inicio = clock();
+    Matrix *D = multiply_strassen(A, B);
+    fin = clock();
+    double tiempo_str = (double)(fin - inicio) / CLOCKS_PER_SEC;
 
-  printf("Resultado C = A x B:\n");
-  matrix_print(C, n);
+    printf("n=%d | std: %.6f s | strassen: %.6f s\n", n, tiempo_std, tiempo_str);
 
-  Matrix *D = multiply_strassen(A, B);
-  printf("Resultado D = A x B (Strassen):\n");
-  matrix_print(D, n);
-  matrix_free(D);
-  
-  Matrix *S = matrix_add(A, B);
-  printf("Resultado S = A + B:\n");
-  matrix_print(S, n);
-  matrix_free(S);
-
-  Matrix *R = matrix_sub(A, B);
-  printf("Resultado R = A - B:\n");
-  matrix_print (R, n);
-  matrix_free(R);
-
-  Matrix *Q = matrix_get_quadrant(A, 0, 0);
-  printf("Cuadrante superior izquierdo de A:\n");
-  matrix_print(Q, Q->n);
-  matrix_free(Q);
-
-  matrix_free(A);
-  matrix_free(B);
-  matrix_free(C);
+    matrix_free(A);
+    matrix_free(B);
+    matrix_free(C);
+    matrix_free(D);
+  }
 
   return 0;
 }
