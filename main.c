@@ -36,6 +36,11 @@ int main(void) {
   matrix_print (R, n);
   matrix_free(R);
 
+  Matrix *Q = matrix_get_quadrant(A, 0, 0);
+  printf("Cuadrante superior izquierdo de A:\n");
+  matrix_print(Q, Q->n);
+  matrix_free(Q);
+
   matrix_free(A);
   matrix_free(B);
   matrix_free(C);
