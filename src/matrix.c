@@ -80,3 +80,18 @@ Matrix *matrix_sub(const Matrix *A, const Matrix *B) {
 
   return C;
 }
+
+Matrix *matrix_get_quadrant(const Matrix *A, int row, int col) {
+  int half = A->n / 2;
+  Matrix *Q = matrix_create(half);
+  if (!Q) return NULL;
+
+  for (int i = 0; i < half; i++) {
+    for (int j = 0; j < half; j++) {
+      MAT(Q, i, j) = MAT(A, i + row, j + col);
+    }
+  }
+
+  return Q;
+}
+
