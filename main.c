@@ -31,6 +31,11 @@ int main(void) {
   matrix_print(S, n);
   matrix_free(S);
 
+  Matrix *R = matrix_sub(A, B);
+  printf("Resultado R = A - B:\n");
+  matrix_print (R, n);
+  matrix_free(R);
+
   matrix_free(A);
   matrix_free(B);
   matrix_free(C);
