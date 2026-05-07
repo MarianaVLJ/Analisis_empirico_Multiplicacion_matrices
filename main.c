@@ -21,6 +21,11 @@ int main(void) {
   printf("Resultado C = A x B:\n");
   matrix_print(C, n);
 
+  Matrix *D = multiply_strassen(A, B);
+  printf("Resultado D = A x B (Strassen):\n");
+  matrix_print(D, n);
+  matrix_free(D);
+
   matrix_free(A);
   matrix_free(B);
   matrix_free(C);
