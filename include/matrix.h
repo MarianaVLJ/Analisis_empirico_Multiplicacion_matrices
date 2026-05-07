@@ -13,5 +13,6 @@ void matrix_free(Matrix *m);
 void matrix_fill_random(Matrix *m, unsigned int seed);
 void matrix_print(const Matrix *m, int max_rows);
 Matrix *multiply_std(const Matrix *A, const Matrix *B);
+Matrix *multiply_strassen(const Matrix *A, const Matrix *B);
 
 #endif
